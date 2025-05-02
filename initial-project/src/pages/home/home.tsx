@@ -73,10 +73,10 @@ function Home() {
         }
 
         const [studentRes, teacherRes] = await Promise.all([
-          axios.get("http://localhost:4000/api/v1/students", {
+          axios.get("https://api.admin.bekzodjon.uz/api/v1/students", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:4000/api/v1/teacher", {
+          axios.get("https://api.admin.bekzodjon.uz/api/v1/teacher", {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
@@ -118,9 +118,7 @@ function Home() {
             if (!isNaN(birthDate.getTime())) {
               age = new Date().getFullYear() - birthDate.getFullYear();
             }
-          } catch (e) {
-            // Handle invalid date
-          }
+          } catch (e) {}
 
           const groupName =
             student.group_members?.length &&

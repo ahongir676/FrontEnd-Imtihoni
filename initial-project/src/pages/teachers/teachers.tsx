@@ -49,7 +49,7 @@ const Teachers = () => {
         const token = parsedData?.state.token;
 
         const response = await axios.get(
-          "http://localhost:4000/api/v1/teacher",
+          "https://api.admin.bekzodjon.uz/api/v1/teacher",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -93,9 +93,12 @@ const Teachers = () => {
       const parsedData = storedData ? JSON.parse(storedData) : null;
       const token = parsedData?.state.token;
 
-      await axios.delete(`http://localhost:4000/api/v1/teacher/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `https://api.admin.bekzodjon.uz/api/v1/teacher/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       toast.success("O‘qituvchi muvaffaqiyatli o‘chirildi");
       setTeachers((prev) => prev.filter((t) => t.id !== id));

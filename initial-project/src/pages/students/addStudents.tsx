@@ -36,10 +36,10 @@ const AddStudent = () => {
       newErrors.paymentMethod = "To‘lov usuli tanlanishi kerak";
     if (!form.paymentAmount) newErrors.paymentAmount = "To‘lov summasi kerak";
     const rawPhone = form.parentPhone.replace(/\D/g, "").slice(3);
-    if (rawPhone.length !== 9) newErrors.parentPhone = "To‘liq raqam kiriting";
-    return newErrors;
     if (!form.username) newErrors.username = "Username kiritilishi kerak";
     if (!form.password) newErrors.password = "Parol kiritilishi kerak";
+    if (rawPhone.length !== 9) newErrors.parentPhone = "To‘liq raqam kiriting";
+    return newErrors;
   };
 
   const handleChange = (key: string, value: string) => {
@@ -108,13 +108,16 @@ const AddStudent = () => {
         formData.append("photo", photo);
       }
 
-      const res = await fetch("http://localhost:4000/api/v1/students", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const res = await fetch(
+        "https://api.admin.bekzodjon.uz/api/v1/students",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       if (res.ok) {
         toast.success("O‘quvchi muvaffaqiyatli qo‘shildi");
@@ -141,7 +144,7 @@ const AddStudent = () => {
         const token = parsedData?.state.token;
 
         const response = await axios.get(
-          "http://localhost:4000/api/v1/groups",
+          "https://api.admin.bekzodjon.uz/api/v1/groups",
           {
             headers: {
               Authorization: `Bearer ${token}`,

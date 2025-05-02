@@ -16,9 +16,12 @@ const Groups = () => {
       const parsedData = storedData ? JSON.parse(storedData) : null;
       const token = parsedData?.state.token;
 
-      const response = await axios.get("http://localhost:4000/api/v1/groups", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "https://api.admin.bekzodjon.uz/api/v1/groups",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       const formattedGroups = response.data.data.map((group: any) => ({
         id: group.group_id,
@@ -46,12 +49,12 @@ const Groups = () => {
       const parsedData = storedData ? JSON.parse(storedData) : null;
       const token = parsedData?.state.token;
 
-      await axios.delete(`http://localhost:4000/api/v1/groups/${id}`, {
+      await axios.delete(`https://api.admin.bekzodjon.uz/api/v1/groups/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       toast.success("Guruh muvaffaqiyatli o‘chirildi");
-      setGroups((prev) => prev.filter((group) => group.id !== id));
+      setGroups((prev: any) => prev.filter((group: any) => group.id !== id));
     } catch (error) {
       toast.error("So‘rovda xatolik yuz berdi");
     } finally {
