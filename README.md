@@ -1,50 +1,54 @@
-# 🎓 Edufix Admin Panel
+# React + TypeScript + Vite
 
-EduCenter — bu o‘quv markazi uchun yaratilgan **admin panel**, unda admin va o‘qituvchilar foydalanuvchilarni, guruhlarni va o‘quvchilarni boshqarishlari mumkin.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 📦 Texnologiyalar
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **React** (Vite)
-- **React Router v6**
-- **Redux Toolkit**
-- **Axios**
-- **Tailwind CSS** (yoki boshqa UI kutubxonasi)
-- **Role-based Access Control (RBAC)**
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## 🔐 Role-based Access
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-Loyihada `RoleChecker` komponenti orqali sahifalarga kirish **faqat "admin" yoki "teacher"** rollariga ruxsat etiladi. 
-Shu orqali himoyalangan marshrutlar faqat kerakli rollarga ko‘rsatiladi.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
----
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## 🧭 Marshrutlar (Routes)
-
-| Path              | Tavsif                     | Kirish huquqi       |
-|-------------------|----------------------------|----------------------|
-| `/login`          | Login sahifasi             | Barchaga ochiq       |
-| `/`               | Dashboard va Home          | admin, teacher       |
-| `/students`       | O‘quvchilar ro‘yxati       | admin, teacher       |
-| `/students/add`   | O‘quvchi qo‘shish sahifasi | faqat admin          |
-| `/teachers`       | O‘qituvchilar ro‘yxati     | faqat admin          |
-| `/teachers/add`   | O‘qituvchi qo‘shish        | faqat admin          |
-| `/groups`         | Guruhlar ro‘yxati          | admin, teacher       |
-| `/groups/add`     | Guruh qo‘shish             | faqat admin          |
-
----
-TODO — Tugallanmagan joylar
- Filter qilish funksiyasi hali qo‘shilmagan
-
- "Yaratish" (Create) funksiyasi ba'zi sahifalarda ishlamaydi
-
- Hech qaysi sahifada Details  page yo‘q (Student, Teacher, Group)
-
- Foydalanuvchi o‘z profilini tahrirlashi qo‘shilmagan
-
- Xatoliklar uchun Snackbar yoki Toast xabarlari yo‘q
-
- Loaderlar (Yuklanmoqda) holatlari hali ko‘rsatilmagan
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
